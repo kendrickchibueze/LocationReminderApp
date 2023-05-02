@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.udacity.project4.base.BaseRecyclerViewAdapter
 
 
+
 object BindingAdapters {
 
     @Suppress("UNCHECKED_CAST")
     @BindingAdapter("android:liveData")
+    @JvmStatic
     fun <T> setRecyclerViewData(recyclerView: RecyclerView, items: LiveData<List<T>>?) {
         items?.value?.let { itemList ->
             val adapter = recyclerView.adapter as? BaseRecyclerViewAdapter<T>

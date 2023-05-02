@@ -22,6 +22,18 @@ private val binding by lazy {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check if user is already signed in
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            startReminderActivity()
+            return
+        }
+
+
+
+
+
         setContentView(binding.root)
 
         binding.signInButton.setOnClickListener {

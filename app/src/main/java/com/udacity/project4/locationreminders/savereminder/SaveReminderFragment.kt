@@ -43,20 +43,24 @@ class SaveReminderFragment : BaseFragment() {
     private val runningQOrLater = android.os.Build.VERSION.SDK_INT >=
             android.os.Build.VERSION_CODES.Q
 
-  private val geofencePendingIntent: PendingIntent by lazy {
-      createGeofenceIntent().let {
-          PendingIntent.getBroadcast(
-              requireContext(),
-              0,
-              it,
-              PendingIntent.FLAG_UPDATE_CURRENT
-          )
-      }
-  }
+    val geofencePendingIntent: PendingIntent by lazy {
+        val intent = Intent(requireContext(), GeofenceBroadcastReceiver::class.java)
+        intent.action = ACTION_GEOFENCE_EVENT
+        PendingIntent.getBroadcast(
+            requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        )
+    }
+
+
+    /* private fun createGeofenceIntent(): Intent {
+         return Intent(requireContext(), GeofenceBroadcastReceiver::class.java).apply {
+             action = ACTION_GEOFENCE_EVENT
+         }
+     }*/
 
     private fun createGeofenceIntent(): Intent {
         return Intent(requireContext(), GeofenceBroadcastReceiver::class.java).apply {
-            action = ACTION_GEOFENCE_EVENT
+            action = GeofenceBroadcastReceiver.ACTION_GEOFENCE_EVENT
         }
     }
 

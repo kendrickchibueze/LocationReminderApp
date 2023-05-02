@@ -1,6 +1,8 @@
 package com.udacity.project4.locationreminders.savereminder
 
 import android.app.Application
+import androidx.databinding.InverseMethod
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.PointOfInterest
@@ -12,24 +14,8 @@ import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 import kotlinx.coroutines.launch
 
-//class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSource) :
-//    BaseViewModel(app) {
-//    val reminderTitle = MutableLiveData<String?>()
-//    val reminderDescription = MutableLiveData<String?>()
-//    val reminderSelectedLocationStr = MutableLiveData<String?>()
-//    val selectedPOI = MutableLiveData<PointOfInterest?>()
-//    val latitude = MutableLiveData<Double?>()
-//    val longitude = MutableLiveData<Double?>()
-//
-//
-//    fun onClear() {
-//        reminderTitle.value = null
-//        reminderDescription.value = null
-//        reminderSelectedLocationStr.value = null
-//        selectedPOI.value = null
-//        latitude.value = null
-//        longitude.value = null
-//    }
+
+
 
 class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSource) :
     BaseViewModel(app) {
@@ -44,8 +30,6 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         listOf(reminderTitle, reminderDescription, reminderSelectedLocationStr, selectedPOI, latitude, longitude)
             .forEach { it.value = null }
     }
-
-
 
     fun validateAndSaveReminder(reminderData: ReminderDataItem) {
         if (validateEnteredData(reminderData)) {
@@ -76,7 +60,6 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         navigationCommand.value = NavigationCommand.Back
     }
 
-
     fun validateEnteredData(reminderData: ReminderDataItem): Boolean {
         return when {
             reminderData.title.isNullOrEmpty() -> {
@@ -90,5 +73,4 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
             else -> true
         }
     }
-
 }
